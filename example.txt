@@ -1,5 +1,3 @@
-<<<<<<< HEAD
+
 Hello git hi hello how are you
-=======
-Hello git  . things added
->>>>>>> 2aafad9df53e96fc8fcdde39ec9006c4f2fb52d7
+
