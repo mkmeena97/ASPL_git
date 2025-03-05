@@ -1,46 +1,40 @@
+# Git Workflow Guide
 
-# **Git Workflow Guide**  
+## **1. Initializing a Git Repository**
 
-## **1. Initialize a Git Repository**  
-First, create a folder in your local storage and navigate inside it. Then, initialize the folder as a Git repository:  
+First, create a folder in your local storage, navigate inside it, and initialize it as a Git repository:
 
 ```sh
 git init
-```  
+```
 
-Now you can start working on your project.  
+## **2. Staging and Committing Changes**
 
----
+After making changes, stage them:
 
-## **2. Staging and Committing Changes**  
-
-### **Stage all changes**  
 ```sh
 git add .
-```  
+```
 
-### **Commit the changes**  
+Then commit the changes with a message:
+
 ```sh
-git commit -m "Your commit message"
-```  
+git commit -m "write message"
+```
 
----
-
-## **3. View Commit History**  
-
-To log all the changes made in the repository, use:  
+To log all the changes:
 
 ```sh
 git log
-```  
+```
 
-Example output:  
+Example output:
 
 ```
 Author: Mahendra <mahendrakumar27697@gmail.com>
 Date:   Wed Mar 5 12:39:52 2025 +0530
 
-    added 2 files in master branch
+    added 2 file in master branch
 
 commit 8ec225f2e8e673e8d5cd0a772f2b2ccb0cca80e2
 Author: Mahendra <mahendrakumar27697@gmail.com>
@@ -49,7 +43,25 @@ Date:   Wed Mar 5 12:24:34 2025 +0530
     conflict resolved
 ```
 
----
+## **3. Stashing Changes**
+
+If you want to temporarily save changes without committing:
+
+```sh
+git stash
+```
+
+To retrieve stashed changes:
+
+```sh
+git stash pop
+```
+
+To clear all stashed changes:
+
+```sh
+git stash clear
+```
 
 ## **4. Resetting Changes**  
 
@@ -58,94 +70,137 @@ If you want to reset your repository to a specific commit, use the commit hash:
 ```sh
 git reset f96a0c38203e0987b24dcdc6b7b659b2919b7095
 ```  
+then 
 
+```sh
+git add .
+```
+
+then 
+```sh
+git stash
+```
 This command will reset all changes after the provided commit hash.  
 
 ---
 
-## **5. Stashing Changes**  
+## **5. Pushing to a Remote Repository**
 
-If you want to temporarily save your changes without committing them:  
+To publish your local repository to GitHub:
 
-```sh
-git stash
-```  
-
-To retrieve the stashed changes:  
-
-```sh
-git stash pop
-```  
-
-To delete all stashed changes:  
-
-```sh
-git stash clear
-```  
-
----
-
-## **6. Pushing to a Remote Repository**  
-
-### **Add a Remote Repository**  
-First, create a repository on GitHub, then copy its URL and run:  
+1. Create a repository on GitHub and copy the repository link.
+2. Add the remote repository:
 
 ```sh
 git remote add origin git_repository_url
-```  
+```
 
-### **Verify Remote Repository URLs**  
+To check all remote URLs linked to your local repository:
+
 ```sh
 git remote -v
-```  
+```
 
-### **Push Changes to Remote Repository**  
+To push all committed changes to the remote repository:
+
 ```sh
 git push origin main
-```  
+```
 
----
+## **6. Branching in Git**
 
-## **7. Working with Branches**  
+To create a new branch:
 
-### **Create a New Branch**  
 ```sh
 git branch branch_name
-```  
+```
 
-### **Check Available Branches**  
+To list all branches:
+
 ```sh
 git branch
-```  
+```
 
-### **Switch to a Branch**  
+To switch to another branch:
+
 ```sh
 git checkout branch_name
-```  
+```
 
----
+## **7. Forking and Contributing to Another Repository**
 
-## **8. Contributing to a Repository (Forking & Upstream)**  
+If you want to contribute to a project but lack direct permissions:
 
-If you want to contribute to a project but don't have permission to push changes, follow these steps:  
+1. Fork the repository.
+2. Add the upstream repository:
 
-1. **Fork the repository on GitHub.**  
-2. **Add the original project as an upstream repository:**  
+```sh
+git remote add upstream repository_url_of_the_Project
+```
 
-   ```sh
-   git remote add upstream repository_url_of_the_project
-   ```  
+To verify the remote repositories:
 
-3. **Verify the remote repositories:**  
+```sh
+git remote -v
+```
 
-   ```sh
-   git remote -v
-   ```  
+After making changes, push your branch and create a pull request on GitHub.
 
-4. **Make changes, commit them, and push to your branch.**  
-5. **Go to GitHub and open a Pull Request.**  
+## **8. Syncing Forked Repository with Upstream**
 
----
+If the upstream repository has updates that your forked repository lacks:
 
-This README provides a structured and easy-to-follow Git workflow. Let me know if you need further refinements! 🚀
+1. Switch to the main branch:
+
+```sh
+git checkout main
+```
+
+2. Fetch all logs:
+
+```sh
+git fetch --all --prune
+```
+
+3. Reset your branch to match upstream:
+
+```sh
+git reset --hard upstream/main
+```
+
+4. Push the updated upstream changes to your local main branch:
+
+```sh
+git push origin main
+```
+
+Alternatively, you can achieve all these steps with:
+
+```sh
+git pull upstream main
+```
+
+Then sync the changes with your local repository:
+
+```sh
+git push origin main
+```
+
+## **9. Squashing Multiple Commits into One**
+
+If multiple commits have been made, but you want to count them as one, you can use `pick` and `squash`:
+
+1. Select the commit hash below all the commits you want to squash:
+
+```sh
+git rebase commit_hashcode
+```
+
+2. Mark the first commit as `pick` and all others as `s` (squash).
+3. Write a commit message.
+4. Exit using:
+
+```
+esc :x enter
+```
 
