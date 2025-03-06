@@ -16,6 +16,12 @@ After making changes, stage them:
 git add .
 ```
 
+To stage changes interactively:
+
+```sh
+git add -p
+```
+
 Then commit the changes with a message:
 
 ```sh
@@ -28,22 +34,50 @@ To log all the changes:
 git log
 ```
 
+To search for specific commits containing a keyword:
+
+```sh
+git log --all --grep "something added"
+```
+
 Example output:
 
 ```
 Author: Mahendra <mahendrakumar27697@gmail.com>
 Date:   Wed Mar 5 12:39:52 2025 +0530
 
-    added 2 file in master branch
-
-commit 8ec225f2e8e673e8d5cd0a772f2b2ccb0cca80e2
-Author: Mahendra <mahendrakumar27697@gmail.com>
-Date:   Wed Mar 5 12:24:34 2025 +0530
-
-    conflict resolved
+    added 2 files in master branch
 ```
 
-## **3. Stashing Changes**
+## **3. Viewing Commit Details**
+
+To show details of a specific commit:
+
+```sh
+git show 2aafad9df53e96fc8fcdde39ec9006c4f2fb52d7
+```
+
+To check the difference between the working directory and the last commit:
+
+```sh
+git diff HEAD
+```
+
+To check the difference between staged changes and the last commit:
+
+```sh
+git diff --staged
+```
+
+## **4. Comparing Branches**
+
+To compare differences between two branches:
+
+```sh
+git log main..master
+```
+
+## **5. Stashing Changes**
 
 If you want to temporarily save changes without committing:
 
@@ -63,28 +97,21 @@ To clear all stashed changes:
 git stash clear
 ```
 
-## **4. Resetting Changes**  
+## **6. Resetting Changes**  
 
 If you want to reset your repository to a specific commit, use the commit hash:  
 
 ```sh
 git reset f96a0c38203e0987b24dcdc6b7b659b2919b7095
 ```  
-then 
+
+To discard all local changes and reset to the last commit:
 
 ```sh
-git add .
+git reset --hard HEAD
 ```
 
-then 
-```sh
-git stash
-```
-This command will reset all changes after the provided commit hash.  
-
----
-
-## **5. Pushing to a Remote Repository**
+## **7. Pushing to a Remote Repository**
 
 To publish your local repository to GitHub:
 
@@ -107,7 +134,33 @@ To push all committed changes to the remote repository:
 git push origin main
 ```
 
-## **6. Branching in Git**
+To delete a branch from the remote repository:
+
+```sh
+git push origin --delete master
+```
+
+or
+
+```sh
+git push origin:master
+```
+
+## **8. Renaming a Remote Repository**
+
+To rename a remote repository from 'origin' to 'destination':
+
+```sh
+git remote rename origin destination
+```
+
+To change the remote repository URL:
+
+```sh
+git remote set-url origin new_repository_url
+```
+
+## **9. Branching in Git**
 
 To create a new branch:
 
@@ -127,7 +180,13 @@ To switch to another branch:
 git checkout branch_name
 ```
 
-## **7. Forking and Contributing to Another Repository**
+To delete a local branch:
+
+```sh
+git branch -d branch_name
+```
+
+## **10. Forking and Contributing to Another Repository**
 
 If you want to contribute to a project but lack direct permissions:
 
@@ -146,7 +205,7 @@ git remote -v
 
 After making changes, push your branch and create a pull request on GitHub.
 
-## **8. Syncing Forked Repository with Upstream**
+## **11. Syncing Forked Repository with Upstream**
 
 If the upstream repository has updates that your forked repository lacks:
 
@@ -186,7 +245,15 @@ Then sync the changes with your local repository:
 git push origin main
 ```
 
-## **9. Squashing Multiple Commits into One**
+## **12. Viewing Short Log Summary**
+
+To view a summary of commits by author:
+
+```sh
+git shortlog
+```
+
+## **13. Squashing Multiple Commits into One**
 
 If multiple commits have been made, but you want to count them as one, you can use `pick` and `squash`:
 
