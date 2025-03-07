@@ -271,3 +271,48 @@ git rebase commit_hashcode
 esc :x enter
 ```
 
+## **14. Git Hooks**
+
+Git hooks are scripts that allow Git to execute custom scripts before or after events such as committing or merging. There are two types of hooks:
+
+- **Server-side hooks**: Triggered on network operations like pushing or pulling a repository.
+- **Client-side hooks**: Triggered on local operations like committing and merging branches.
+
+By default, Git hooks are disabled. To enable a hook, first delete its sample file in the `.git/hooks` directory.
+
+### **Pre-commit Hook (Client-side)**
+
+A pre-commit hook runs before a commit is finalized. To create one:
+
+1. Navigate to `.git/hooks/` inside your repository.
+2. Remove the default sample file:
+
+```sh
+rm .git/hooks/pre-commit.sample
+```
+
+3. Create a new `pre-commit` script and make it executable:
+
+```sh
+touch .git/hooks/pre-commit
+chmod +x .git/hooks/pre-commit
+```
+
+4. Add the following script to enforce code formatting or other checks before committing:
+
+```sh
+#!/bin/sh
+
+# Example: Prevent commits with TODO comments
+if grep -r --exclude-dir=.git "TODO" .
+then
+  echo "Commit aborted: Remove TODO comments before committing."
+  exit 1
+fi
+
+echo "Pre-commit check passed."
+exit 0
+```
+
+Now, every time you attempt to commit, this script will run automatically, preventing commits that contain "TODO" comments.
+
